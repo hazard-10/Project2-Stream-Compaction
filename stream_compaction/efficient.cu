@@ -42,7 +42,7 @@ namespace StreamCompaction {
         void scan(int n, int *odata, const int *idata) {
             int d_round = ilog2ceil(n);
             int full_size = 1 << d_round;
-            int block_size = 256;
+            int block_size = 512;
             dim3 fullBlocksPerGrid((block_size + full_size - 1) / block_size);
 
             int *d_data;
@@ -81,7 +81,7 @@ namespace StreamCompaction {
             cudaMalloc((void **)&d_bools, n * sizeof(int));
             cudaMalloc((void **)&d_odata, n * sizeof(int));
             cudaMemcpy(d_idata, idata, n * sizeof(int), cudaMemcpyHostToDevice);
-            int block_size = 256;
+            int block_size = 512;
             dim3 fullBlocksPerGrid((block_size + n - 1) / block_size);
             // efficient scan
             int d_round = ilog2ceil(n);
